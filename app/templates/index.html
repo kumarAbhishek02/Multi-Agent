@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multi-Agent Console</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo" aria-hidden="true"></span>Multi-Agent Console</div>
+    <div class="health" id="health" title="">checking…</div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <section>
+        <h2>Team</h2>
+        <ul class="roster" id="roster"></ul>
+      </section>
+      <section>
+        <h2>History</h2>
+        <ul class="history" id="history"><li class="empty">No tasks yet.</li></ul>
+      </section>
+    </aside>
+
+    <main>
+      <form class="composer" id="composer">
+        <label for="task">What should the team do?</label>
+        <textarea id="task" rows="4" maxlength="20000" required
+          placeholder="Describe a task. The coordinator will plan it and bring in specialists as needed."></textarea>
+        <div class="composer-row">
+          <div class="examples" id="examples"></div>
+          <button type="submit" class="primary" id="submit">Run task</button>
+        </div>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+      </form>
+
+      <section class="run" id="run" hidden>
+        <div class="run-head">
+          <span class="badge" id="run-status"></span>
+          <span class="run-task" id="run-task"></span>
+          <span class="meta" id="run-meta"></span>
+          <button type="button" id="cancel" hidden>Cancel</button>
+        </div>
+
+        <article class="result" id="result" hidden>
+          <h2 id="result-title">Final answer</h2>
+          <div class="markdown" id="result-body"></div>
+        </article>
+
+        <div class="artifacts" id="artifacts" hidden>
+          <h2>Artifacts</h2>
+          <ul id="artifact-list"></ul>
+        </div>
+
+        <h2>Agent activity</h2>
+        <div class="timeline" id="timeline"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="artifact-dialog">
+    <header>
+      <strong id="artifact-name"></strong>
+      <form method="dialog"><button aria-label="Close">Close</button></form>
+    </header>
+    <pre id="artifact-content"></pre>
+  </dialog>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
