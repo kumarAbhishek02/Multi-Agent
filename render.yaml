@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: multi-agent-console
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: python run.py
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: HOST
+        value: 0.0.0.0
+      - key: AGENT_MODEL
+        value: qwen2.5:3b
+      - key: OLLAMA_BASE_URL
+        sync: false
+      - key: AGENT_TEMPERATURE
+        value: "0.1"
+      - key: MAX_CONCURRENT_RUNS
+        value: "3"
+      - key: MAX_DELEGATIONS
+        value: "12"
+      - key: MAX_AGENT_TURNS
+        value: "16"
+      - key: MAX_PARALLEL_TOOLS
+        value: "4"
+      - key: WAITRESS_THREADS
+        value: "16"
